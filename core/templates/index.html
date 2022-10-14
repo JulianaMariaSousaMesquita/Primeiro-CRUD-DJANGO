@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Cadastro de pessoas</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="d-flex p-2 bd-highlight">
+      <table>
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">NOME</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pessoa in pessoas %}
+              <tr>
+                <th scope="row">{{ pessoa.id }}</th>
+                <td>{{ pessoa.nome }} </td>
+                <td><a href="{% url 'editar' pessoa.id %}" class="btn btn-warning"> Editar </a></td>
+                <td><a href="{% url 'delete' pessoa.id %}" class="btn btn-danger"> Deletar </a> </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>  
+    </div>
+    <div class="d-flex p-2 bd-highlight">
+      <form action="{% url 'salvar' %}" method="POST" class="form-group">
+        {% csrf_token %}
+        <input type="text" name="nome" class="form-control form-control-sm">
+        <br/>
+        <button type="submit" class="btn btn-primary">Cadastrar novo nome</button>
+      </form>
+    </div>
+  </body>
+</html>
